@@ -1,0 +1,17 @@
+<ion-header translucent="true" class="ion-no-border" >
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+
+
+    <ion-avatar [routerLink]="['/inicio']" >
+      <ion-img [src]="titulo" class="ion-align-self-center"></ion-img>
+    </ion-avatar>
+
+    <ion-buttons slot="end">
+      <ion-menu-button menu="menuPrincipal" color="secondary"></ion-menu-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>

@@ -1,0 +1,59 @@
+<app-header></app-header>
+<ion-toolbar>
+
+  <!--Tabs-->
+ <!-- <ion-tabs>
+    <ion-tab-bar slot="top" color="secondary" >
+      <ion-tab-button *ngFor="let sec of secciones"  tab="{{sec.titulo}}" >
+        <ion-icon name="radio"></ion-icon>
+        <ion-label>{{sec.titulo}}</ion-label>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+  </ion-tabs>-->
+
+  <ion-segment [scrollable]="true" value="heart">
+    <ion-segment-button [value]="sec.titulo"  *ngFor="let sec of secciones" [routerLink]="'/bySeccion/'+sec.titulo" >
+<!--      <ion-icon name="home"></ion-icon>-->
+      <ion-img [src]="sec.icono"></ion-img>
+    </ion-segment-button>
+  </ion-segment>
+
+</ion-toolbar>
+
+<ion-content [fullscreen]="true" *ngIf="seccion">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{seccion}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+<!--Card noticias seccion-->
+  <ion-card *ngFor="let noti of noticias" (click)="irADetalle(noti._id)" >
+    <img alt="Imagen" [src]="noti.imagenes || 'assets/placeholder.jpg'" />
+    <ion-card-header>
+      <h1>{{noti.titulo}}</h1>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{noti.autor}}
+    </ion-card-content>
+
+  </ion-card>
+
+  <!-- FAB Button-->
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button color="secondary" routerLink="/busqueda" >
+      <ion-icon name="search"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Infinite Scroll-->
+  <ion-infinite-scroll threshold="150px" (ionInfinite)="cargarDatos($event)">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando otras 5 noticias...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
+</ion-content>

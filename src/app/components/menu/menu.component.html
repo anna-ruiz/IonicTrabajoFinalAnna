@@ -1,0 +1,39 @@
+<ion-menu side="end" menu-id="menuPrincipal" content-id="principal">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-avatar slot="">
+        <ion-img src="assets/logo.png" class="ion-align-self-center"></ion-img>
+      </ion-avatar>    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle >
+
+        <ion-item routerLink="/" detail="true">
+          <ion-avatar>
+            <ion-img src="assets/shapes.svg" ></ion-img>
+          </ion-avatar>
+          <ion-label>
+            Inicio
+          </ion-label>
+        </ion-item>
+
+        <div *ngIf="secciones">
+          <ion-item *ngFor="let seccion of secciones" [routerLink]="'/bySeccion/'+seccion.titulo"
+                    detail="true">
+            <ion-avatar>
+              <ion-img [src]="seccion.icono" ></ion-img>
+            </ion-avatar>
+            <ion-label>
+              {{seccion.titulo}}
+            </ion-label>
+          </ion-item>
+
+        </div>
+
+      </ion-menu-toggle>
+    </ion-list>
+
+
+  </ion-content>
+</ion-menu>

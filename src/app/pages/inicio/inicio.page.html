@@ -1,0 +1,46 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="menuPrincipal" color="primary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-avatar slot="">
+        <ion-img src="assets/logo.png" class="ion-align-self-center"></ion-img>
+      </ion-avatar>
+    </ion-toolbar>
+  </ion-header>
+
+
+<!-- CARD -->
+  <ion-card *ngFor="let noticia of noticias" (click)="abrirDetalles(noticia._id)">
+    <img alt="Imagen" [src]="noticia.imagenes || 'assets/placeholder.jpg'" />
+    <ion-card-header>
+      <ion-card-title>{{noticia.titulo}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{noticia.autor}}
+    </ion-card-content>
+
+  </ion-card>
+
+
+  <!-- FAB Button-->
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button color="secondary" (click)="irABusqueda()" >
+      <ion-icon name="search"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Infinite Scroll-->
+  <ion-infinite-scroll threshold="150px" (ionInfinite)="cargarDatos($event)">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando otras 5 noticias...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
