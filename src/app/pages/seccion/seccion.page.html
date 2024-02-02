@@ -12,10 +12,10 @@
     </ion-tab-bar>
   </ion-tabs>-->
 
-  <ion-segment [scrollable]="true" value="heart">
-    <ion-segment-button [value]="sec.titulo"  *ngFor="let sec of secciones" [routerLink]="'/bySeccion/'+sec.titulo" >
-<!--      <ion-icon name="home"></ion-icon>-->
-      <ion-img [src]="sec.icono"></ion-img>
+  <ion-segment [scrollable]="true" value="fa-microchip">
+    <ion-segment-button [value]="sec.iconoIonic"  *ngFor="let sec of secciones" [routerLink]="'/bySeccion/'+sec.nombreSeccion" >
+     <ion-icon [name]="sec.iconoIonic" (click)="setSeccionElegida(sec)" ></ion-icon>
+<!--      <ion-img [src]="sec.icono"></ion-img>-->
     </ion-segment-button>
   </ion-segment>
 
@@ -30,7 +30,7 @@
 
 
 <!--Card noticias seccion-->
-  <ion-card *ngFor="let noti of noticias" (click)="irADetalle(noti._id)" >
+  <ion-card *ngFor="let noti of noticiasAux" (click)="irADetalle(noti._id)" >
     <img alt="Imagen" [src]="noti.imagenes || 'assets/placeholder.jpg'" />
     <ion-card-header>
       <h1>{{noti.titulo}}</h1>

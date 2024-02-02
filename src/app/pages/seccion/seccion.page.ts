@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DataService} from "../../services/data.service";
 import {Noticia, Seccion} from "../../common/interfaces";
 import {ActivatedRoute, Router, Routes} from "@angular/router";
+import {InfiniteScrollCustomEvent} from "@ionic/angular";
 
 @Component({
   selector: 'app-seccion',
@@ -12,6 +13,8 @@ export class SeccionPage implements OnInit {
   seccion!: string;
   noticias!: Noticia[];
   secciones: Seccion[] = [];
+  noticiasAux: Noticia[] = [];
+  seccionSeleccionada!: Seccion;
 
   constructor(private dataService: DataService, private activatedRoute: ActivatedRoute, private route: Router) { }
 
@@ -35,6 +38,7 @@ export class SeccionPage implements OnInit {
         next: (data) => {
           this.noticias = data;
           console.log(this.noticias);
+          this.cargarDatos();
         },
         error: (err) => {
           console.log(err)
@@ -47,6 +51,9 @@ export class SeccionPage implements OnInit {
 
   }
   private cargarSecciones() {
+
+    this.secciones = [];
+
     this.dataService.getSecciones().subscribe(
       data => {
         this.secciones = data;
@@ -58,12 +65,26 @@ export class SeccionPage implements OnInit {
     this.route.navigate(['/detalle-noticia/',id]);
   }
 
-  cargarDatos(event: any) {
+  cargarDatos(event?: InfiniteScrollCustomEvent) {
     console.log('Cargando más noticias...');
     setTimeout(() => {
-      const nuevasNotis = Array(5);
-      this.noticias.push(...nuevasNotis);
-      event.target.complete();
+      const newNoticias = this.noticias.splice(0,5);
+      if (newNoticias.length > 0){
+        this.noticiasAux.push(...newNoticias);
+      }else {
+        if (event){
+          event.target.disabled = true;
+        }
+      }
+
+      if (event){
+        event.target.complete();
+      }
     }, 1000);
+  }
+
+  setSeccionElegida(sec: Seccion) {
+    this.seccionSeleccionada = sec;
+
   }
 }

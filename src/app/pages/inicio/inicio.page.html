@@ -11,14 +11,14 @@
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-avatar slot="">
-        <ion-img src="assets/logo.png" class="ion-align-self-center"></ion-img>
+        <ion-img src="/assets/logo.png" class="ion-align-self-center"></ion-img>
       </ion-avatar>
     </ion-toolbar>
   </ion-header>
 
 
 <!-- CARD -->
-  <ion-card *ngFor="let noticia of noticias" (click)="abrirDetalles(noticia._id)">
+  <ion-card *ngFor="let noticia of noticiasAux" (click)="abrirDetalles(noticia._id)">
     <img alt="Imagen" [src]="noticia.imagenes || 'assets/placeholder.jpg'" />
     <ion-card-header>
       <ion-card-title>{{noticia.titulo}}</ion-card-title>

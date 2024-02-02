@@ -1,13 +1,28 @@
-<app-header titulo="Busqueda"></app-header>
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="menuPrincipal" color="primary"></ion-menu-button>
+    </ion-buttons>
+
+
+
+  </ion-toolbar>
+</ion-header>
+
 
 <ion-content [fullscreen]="true">
 
+  <!-- Logo -->
+  <ion-avatar>
+    <img src="assets/logo.png" alt="Imagen Logo">
+  </ion-avatar>
 
-  <!-- Barra busqueda -->
-  <ion-searchbar animated="true" (ionChange)="buscar($event)"></ion-searchbar>
+
+  <!-- Barra d busqueda -->
+  <ion-searchbar animated="true" (ionChange)="buscar($event)" placeholder="Introduce un titulo o autor"></ion-searchbar>
 
   <!--Cards-->
-  <ion-card *ngFor="let noticia of noticias" (click)="abrirDetalles(noticia._id)">
+  <ion-card *ngFor="let noticia of noticiasAux" (click)="abrirDetalles(noticia._id)">
     <img alt="Imagen" [src]="noticia.imagenes || 'assets/placeholder.jpg'" />
     <ion-card-header>
       <ion-card-title>{{noticia.titulo}}</ion-card-title>

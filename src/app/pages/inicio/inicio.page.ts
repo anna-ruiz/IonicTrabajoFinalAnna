@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Noticia} from "../../common/interfaces";
 import {DataService} from "../../services/data.service";
 import {Router} from "@angular/router";
+import {InfiniteScrollCustomEvent, LoadingController} from "@ionic/angular";
+import {car} from "ionicons/icons";
 
 @Component({
   selector: 'app-inicio',
@@ -11,6 +13,7 @@ import {Router} from "@angular/router";
 export class InicioPage implements OnInit {
 
   noticias: Noticia[] = [];
+  noticiasAux: Noticia[] = [];
   constructor(private dataService: DataService, private route: Router) { }
 
   ngOnInit() {
@@ -22,6 +25,12 @@ export class InicioPage implements OnInit {
       {
         next: (data) => {
           this.noticias = data;
+       this.noticias = data.sort((a,b) => {
+            const fecha1 = new Date(a.fecha).getTime();
+            const fecha2 = new Date(b.fecha).getTime();
+            return fecha2 - fecha1;
+          });
+          this.cargarDatos();
         },
         error: (err) => {
           console.log(err)
@@ -31,8 +40,8 @@ export class InicioPage implements OnInit {
         }
       }
     )
-
   }
+
 
   irABusqueda() {
     this.route.navigate(['/busqueda']);
@@ -42,13 +51,23 @@ export class InicioPage implements OnInit {
     this.route.navigate(['/detalle-noticia/',noticia]);
   }
 
-  cargarDatos(event: any) {
-    console.log('Cargando más noticias...');
-    setTimeout(() => {
-      const nuevasNotis = Array(5);
-      this.noticias.push(...nuevasNotis);
-      event.target.complete();
-    }, 1000);
 
+
+ cargarDatos(event?: InfiniteScrollCustomEvent) {
+   // console.log('Cargando más noticias...');
+    setTimeout(() => {
+      const newNoticias = this.noticias.splice(0,5);
+      if (newNoticias.length > 0){
+        this.noticiasAux.push(...newNoticias);
+      }else {
+        if (event){
+          event.target.disabled = true;
+        }
+      }
+
+      if (event){
+        event.target.complete();
+      }
+    }, 1000);
   }
 }

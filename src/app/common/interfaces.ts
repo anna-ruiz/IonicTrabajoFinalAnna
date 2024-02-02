@@ -11,8 +11,10 @@ export interface Noticia {
 }
 
 export interface Seccion {
-  titulo: string
-  icono: string
+  nombreSeccion: string
+  imagen: string
+  iconoIonic?: string
+  iconoFontAwesome?: string
 }
 export interface Comentario {
   nombre: string;

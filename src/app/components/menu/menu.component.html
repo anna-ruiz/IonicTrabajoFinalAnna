@@ -1,6 +1,6 @@
 <ion-menu side="end" menu-id="menuPrincipal" content-id="principal">
   <ion-header>
-    <ion-toolbar color="primary">
+    <ion-toolbar color="light">
       <ion-avatar slot="">
         <ion-img src="assets/logo.png" class="ion-align-self-center"></ion-img>
       </ion-avatar>    </ion-toolbar>
@@ -10,8 +10,8 @@
       <ion-menu-toggle >
 
         <ion-item routerLink="/" detail="true">
-          <ion-avatar>
-            <ion-img src="assets/shapes.svg" ></ion-img>
+          <ion-avatar class="imgInicio">
+            <ion-img  src="assets/shapes.svg" ></ion-img>
           </ion-avatar>
           <ion-label>
             Inicio
@@ -19,13 +19,14 @@
         </ion-item>
 
         <div *ngIf="secciones">
-          <ion-item *ngFor="let seccion of secciones" [routerLink]="'/bySeccion/'+seccion.titulo"
+          <ion-item *ngFor="let seccion of secciones" [routerLink]="'/bySeccion/'+seccion.nombreSeccion"
                     detail="true">
-            <ion-avatar>
-              <ion-img [src]="seccion.icono" ></ion-img>
-            </ion-avatar>
+            <ion-icon color="secondary" [name]="seccion.iconoIonic"></ion-icon>
+            <!--<ion-avatar>
+              <ion-img [src]="seccion.imagen" ></ion-img>
+            </ion-avatar>-->
             <ion-label>
-              {{seccion.titulo}}
+              {{seccion.nombreSeccion}}
             </ion-label>
           </ion-item>
 
